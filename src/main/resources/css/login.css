@@ -1,0 +1,42 @@
+/* frontend/styles/login-view.css */
+
+.login-view {
+    background: linear-gradient(135deg, #e8f2ff, #f8fbff);
+}
+
+.login-title {
+    margin: 0 0 24px 0;
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+.login-card {
+    width: 420px;
+    max-width: calc(100% - 32px);
+    padding: 32px;
+    border-radius: 24px;
+    background: white;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.14);
+}
+
+.login-heading {
+    margin-top: 0;
+    text-align: center;
+}
+
+.login-fields {
+    width: 100%;
+}
+
+.login-error {
+    color: #d93025;
+    font-weight: 500;
+    margin: 0;
+}
+
+.login-button {
+    margin-top: 12px;
+    border-radius: 999px;
+    font-weight: 600;
+}
