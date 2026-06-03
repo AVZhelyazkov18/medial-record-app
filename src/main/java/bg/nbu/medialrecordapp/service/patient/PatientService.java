@@ -96,4 +96,8 @@ public class PatientService implements UIInterfaceMethods<Patient> {
     public Patient save(Patient object) {
         return patientRepository.save(object);
     }
+
+    public Patient findByEmail(String email) {
+        return patientRepository.findByWebAccountEmail(email).orElse(null);
+    }
 }

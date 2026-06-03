@@ -6,6 +6,7 @@ import bg.nbu.medialrecordapp.data.dto.WebAccount.WebAccountInsertRequestDTO;
 import bg.nbu.medialrecordapp.data.entity.Doctor;
 import bg.nbu.medialrecordapp.data.entity.FitNote;
 import bg.nbu.medialrecordapp.data.entity.MedicalRecord;
+import bg.nbu.medialrecordapp.data.entity.Patient;
 import bg.nbu.medialrecordapp.data.entity.auth.WebAccount;
 import bg.nbu.medialrecordapp.enums.MedicalRecordStatus;
 import bg.nbu.medialrecordapp.enums.auth.Role;
@@ -13,6 +14,7 @@ import bg.nbu.medialrecordapp.service.auth.WebAccountService;
 import bg.nbu.medialrecordapp.service.doctor.DoctorService;
 import bg.nbu.medialrecordapp.service.examinations.FitNoteService;
 import bg.nbu.medialrecordapp.service.examinations.MedicalRecordService;
+import bg.nbu.medialrecordapp.service.patient.PatientService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Text;
@@ -59,6 +61,7 @@ public class AdminView extends VerticalLayout {
     private final MedicalRecordService medicalRecordService;
     private final FitNoteService fitNoteService;
     private final AuthenticationContext authenticationContext;
+    private final PatientService patientService;
 
     private Map<String, Long> top3Doctors;
 
@@ -66,7 +69,7 @@ public class AdminView extends VerticalLayout {
                      DoctorService doctorService,
                      MedicalRecordService medicalRecordService,
                      FitNoteService fitNoteService,
-                     AuthenticationContext authenticationContext) {
+                     AuthenticationContext authenticationContext, PatientService patientService) {
         this.accountService = accountService;
         this.doctorService = doctorService;
         this.medicalRecordService = medicalRecordService;
@@ -80,6 +83,7 @@ public class AdminView extends VerticalLayout {
 
         add(buildTabs());
         add(buildStatistics());
+        this.patientService = patientService;
     }
 
     private VerticalLayout buildTabs() {
@@ -335,10 +339,17 @@ public class AdminView extends VerticalLayout {
         Grid<MedicalRecord> grid = new Grid<>(MedicalRecord.class, false);
 
         grid.addColumn(MedicalRecord::getId).setHeader("ID").setWidth("80px").setFlexGrow(0);
-        Grid.Column<MedicalRecord> patientColumn = grid.addColumn(r -> r.getPatient().getWebAccount().getEmail())
-                .setHeader("Patient").setWidth("250px");
-        Grid.Column<MedicalRecord> doctorColumn = grid.addColumn(r -> r.getDoctor().getWebAccount().getEmail())
-                .setHeader("Doctor").setWidth("250px");
+        Grid.Column<MedicalRecord> patientColumn = grid.addColumn(r -> {
+            if (r.getPatient() != null && r.getPatient().getWebAccount() != null)
+                return r.getPatient().getWebAccount().getEmail();
+            return "";
+        }).setHeader("Patient").setWidth("200px");
+        Grid.Column<MedicalRecord> doctorColumn = grid.addColumn(r -> {
+            if (r.getDoctor() != null && r.getDoctor().getWebAccount() != null) {
+                return r.getDoctor().getWebAccount().getEmail();
+            }
+            return "";
+        }).setHeader("Doctor").setWidth("200px");
         Grid.Column<MedicalRecord> statusColumn = grid.addColumn(MedicalRecord::getStatus)
                 .setHeader("Status").setWidth("150px");
         Grid.Column<MedicalRecord> dateColumn = grid.addColumn(MedicalRecord::getDate)
@@ -377,6 +388,24 @@ public class AdminView extends VerticalLayout {
                 .bind(r -> r.getAppointmentPrice() != null ? r.getAppointmentPrice().doubleValue() : 0,
                         (r, val) -> r.setAppointmentPrice(BigDecimal.valueOf(val)));
         priceColumn.setEditorComponent(priceEditor);
+
+        TextField patientEmailEditor = new TextField();
+        patientEmailEditor.setWidthFull();
+
+        binder.forField(patientEmailEditor)
+                .bind(
+                        r -> r.getPatient() != null ? r.getPatient().getWebAccount().getEmail() : "",
+                        (r, email) -> {
+                            if (email == null || email.isBlank()) {
+                                r.setPatient(null);
+                            } else {
+                                Patient patient = patientService.findByEmail(email);
+                                if (patient != null)
+                                    r.setPatient(patient);
+                            }
+                        }
+                );
+        patientColumn.setEditorComponent(patientEmailEditor);
 
         IntegerField fitNoteEditor = new IntegerField();
         fitNoteEditor.setWidthFull();
