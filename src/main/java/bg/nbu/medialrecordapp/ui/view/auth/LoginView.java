@@ -1,43 +1,42 @@
-package bg.nbu.medialrecordapp.ui.view;
+package bg.nbu.medialrecordapp.ui.view.auth;
 
-import com.vaadin.flow.component.html.Main;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @Route(value = "login", autoLayout = false)
 @PageTitle("Login")
 @AnonymousAllowed
-public class LoginView extends Main implements BeforeEnterObserver {
+public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
-    private final LoginForm loginForm;
+    private final LoginForm loginForm = new LoginForm();
 
     public LoginView() {
-        loginForm = new LoginForm();
+        setSizeFull();
+
+        H1 title = new H1("Medical Record App");
+
+        loginForm.setForgotPasswordButtonVisible(false);
         loginForm.setAction("login");
 
-        VerticalLayout layout = new VerticalLayout(loginForm);
-        layout.setAlignItems(FlexComponent.Alignment.CENTER);
-        layout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        layout.add(loginForm);
-        layout.setSizeFull();
+        RouterLink registerLink = new RouterLink("Create an account", RegisterView.class);
+        add(title, loginForm, registerLink);
 
-        add(layout);
-        setSizeFull();
+        setAlignItems(Alignment.CENTER);
+        setJustifyContentMode(JustifyContentMode.CENTER);
+
+        add(title, loginForm, registerLink);
     }
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-        if (event.getLocation()
-        .getQueryParameters()
-        .getParameters()
-        .containsKey("error")) {
-            loginForm.setError(true);
-        }
+        boolean hasError = event.getLocation()
+                .getQueryParameters()
+                .getParameters()
+                .containsKey("error");
+
+        loginForm.setError(hasError);
     }
 }

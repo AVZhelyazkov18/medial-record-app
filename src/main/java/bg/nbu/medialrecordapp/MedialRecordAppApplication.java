@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MedialRecordAppApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MedialRecordAppApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MedialRecordAppApplication.class, args);
+    }
 
 }
