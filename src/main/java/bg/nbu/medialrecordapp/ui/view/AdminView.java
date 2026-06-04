@@ -14,7 +14,7 @@ import bg.nbu.medialrecordapp.service.auth.WebAccountService;
 import bg.nbu.medialrecordapp.service.doctor.DoctorService;
 import bg.nbu.medialrecordapp.service.examinations.FitNoteService;
 import bg.nbu.medialrecordapp.service.examinations.MedicalRecordService;
-import bg.nbu.medialrecordapp.service.patient.PatientService;
+import bg.nbu.medialrecordapp.service.patient.PatientServiceImpl;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.Text;
@@ -61,7 +61,7 @@ public class AdminView extends VerticalLayout {
     private final MedicalRecordService medicalRecordService;
     private final FitNoteService fitNoteService;
     private final AuthenticationContext authenticationContext;
-    private final PatientService patientService;
+    private final PatientServiceImpl patientService;
 
     private Map<String, Long> top3Doctors;
 
@@ -69,7 +69,7 @@ public class AdminView extends VerticalLayout {
                      DoctorService doctorService,
                      MedicalRecordService medicalRecordService,
                      FitNoteService fitNoteService,
-                     AuthenticationContext authenticationContext, PatientService patientService) {
+                     AuthenticationContext authenticationContext, PatientServiceImpl patientService) {
         this.accountService = accountService;
         this.doctorService = doctorService;
         this.medicalRecordService = medicalRecordService;

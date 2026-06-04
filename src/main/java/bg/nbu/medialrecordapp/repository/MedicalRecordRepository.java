@@ -27,6 +27,7 @@ public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Lo
             WHERE m.doctor = :doctor AND m.diagnosis is not null AND m.diagnosis <> ''
             GROUP BY m.diagnosis
             ORDER BY COUNT(m.diagnosis) DESC
+            LIMIT 1
             """)
     String findMostFoundDiagnosisByDoctor(Doctor doctor);
 

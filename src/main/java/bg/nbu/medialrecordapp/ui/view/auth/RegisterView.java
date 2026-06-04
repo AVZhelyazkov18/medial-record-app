@@ -3,7 +3,7 @@ package bg.nbu.medialrecordapp.ui.view.auth;
 import bg.nbu.medialrecordapp.data.dto.RegisterRequestDTO;
 import bg.nbu.medialrecordapp.exception.CredentialsNotFoundException;
 import bg.nbu.medialrecordapp.exception.EmailAlreadyExistsException;
-import bg.nbu.medialrecordapp.service.auth.WebAccountService;
+import bg.nbu.medialrecordapp.service.auth.WebAccountServiceImpl;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
@@ -22,9 +22,9 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 @PageTitle("Register")
 @AnonymousAllowed
 public class RegisterView extends VerticalLayout {
-    private final WebAccountService authService;
+    private final WebAccountServiceImpl authService;
 
-    public RegisterView(WebAccountService authService) {
+    public RegisterView(WebAccountServiceImpl authService) {
         this.authService = authService;
 
         setSizeFull();

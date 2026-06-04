@@ -1,8 +1,8 @@
 package bg.nbu.medialrecordapp.ui.view.patients;
 
 import bg.nbu.medialrecordapp.data.dto.MedicalRecord.MedicalRecordPatientResponseDTO;
-import bg.nbu.medialrecordapp.data.entity.MedicalRecord;
 import bg.nbu.medialrecordapp.service.examinations.MedicalRecordService;
+import bg.nbu.medialrecordapp.service.examinations.MedicalRecordServiceImpl;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.html.Div;

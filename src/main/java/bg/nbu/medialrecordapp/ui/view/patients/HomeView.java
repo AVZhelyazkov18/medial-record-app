@@ -2,6 +2,7 @@ package bg.nbu.medialrecordapp.ui.view.patients;
 
 import bg.nbu.medialrecordapp.data.dto.Patient.PatientHomeResponseDTO;
 import bg.nbu.medialrecordapp.service.patient.PatientService;
+import bg.nbu.medialrecordapp.service.patient.PatientServiceImpl;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;

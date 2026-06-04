@@ -3,8 +3,11 @@ package bg.nbu.medialrecordapp.ui.view.patients;
 import bg.nbu.medialrecordapp.data.entity.Doctor;
 import bg.nbu.medialrecordapp.data.entity.Patient;
 import bg.nbu.medialrecordapp.service.doctor.DoctorService;
+import bg.nbu.medialrecordapp.service.doctor.DoctorServiceImpl;
 import bg.nbu.medialrecordapp.service.examinations.MedicalRecordService;
+import bg.nbu.medialrecordapp.service.examinations.MedicalRecordServiceImpl;
 import bg.nbu.medialrecordapp.service.patient.PatientService;
+import bg.nbu.medialrecordapp.service.patient.PatientServiceImpl;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -34,7 +37,9 @@ public class AppointmentView extends VerticalLayout {
     private static final String GLOW_COLOR = "rgba(31, 125, 75, 0.10)";
     private static final String BORDER_COLOR = "#BBF7D0";
 
-    public AppointmentView(DoctorService doctorService, MedicalRecordService medicalRecordService, PatientService patientService) {
+    public AppointmentView(DoctorService doctorService,
+                           MedicalRecordService medicalRecordService,
+                           PatientService patientService) {
         setSizeFull();
         setPadding(false);
         setSpacing(false);
